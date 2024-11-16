@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setColor, resetColor } from './actions';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const color = useSelector(state => state);
+    const dispatch = useDispatch();
+
+    const handleColorChange = (e) => {
+        dispatch(setColor(e.target.value));
+    };
+
+    return (
+        <div>
+            <h2>Color</h2>
+            <p>Current Color: {color}</p>
+            <input type="text" value={color} onChange={handleColorChange} />
+            <button onClick={() => dispatch(resetColor())}>Reset Color</button>
+        </div>
+    );
+};
 
 export default App;
